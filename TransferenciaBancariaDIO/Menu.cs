@@ -41,45 +41,77 @@ namespace TransferenciaBancariaDIO
 
         public static void MenuDeposito(List<Conta> listaContas)
         {
-            Console.Write("Digite o numero da conta que fará deposito: ");
+            Console.Write("\nDigite o numero da conta que fará deposito: ");
             int numConta = int.Parse(Console.ReadLine());
 
             Conta c1 = listaContas.Find(x => x.NumConta == numConta);
+            
+            if (c1 != null)
+            {
+                Console.Write("Qual será o valor do depósito? ");
+                double deposito = double.Parse(Console.ReadLine());
+                c1.Deposito(deposito);
 
-            Console.Write("Qual será o valor do depósito? ");
-            double deposito = double.Parse(Console.ReadLine());
-            c1.Deposito(deposito);
-
-            Console.WriteLine($"\nDeposito realizado!\n{c1}");
+                Console.WriteLine($"\nDeposito realizado!\n{c1}");
+            }
+            else
+            {
+                Console.WriteLine("Numero de conta inexistente!");
+            }
         }
 
         public static void MenuSaque(List<Conta> listaContas)
         {
-            Console.Write("Digite o numero da conta que você deseja realizar um saque: ");
+            Console.Write("\nDigite o numero da conta que você deseja realizar um saque: ");
             int numConta = int.Parse(Console.ReadLine());
 
             Conta c1 = listaContas.Find(x => x.NumConta == numConta);
 
-            Console.Write("Qual será o valor do saque? ");
-            double saque = double.Parse(Console.ReadLine());
-            c1.Saque(saque);
+            if (c1 != null)
+            {
+                Console.Write("Qual será o valor do saque? ");
+                double saque = double.Parse(Console.ReadLine());
+                c1.Saque(saque);
+
+                Console.WriteLine($"\nDados atualizados da conta: {c1}");
+            }
+            else
+                Console.WriteLine("Número de conta inexistente!");
         }
 
         public static void Transferir(List<Conta> listaContas)
         {
-            Console.Write("Digite o numero da conta que fará uma transferencia: ");
-            int origem = int.Parse(Console.ReadLine());
-            Console.Write("Digite o numero da conta que receberá a transferencia: ");
-            int destino = int.Parse(Console.ReadLine());
+                Console.Write("\nDigite o numero da conta que fará uma transferencia: ");
+                int origem = int.Parse(Console.ReadLine());
 
-            Conta c1 = listaContas.Find(x => x.NumConta == origem);
-            Conta c2 = listaContas.Find(x => x.NumConta == destino);
+                Conta c1 = listaContas.Find(x => x.NumConta == origem);
+                while (c1 == null)
+                {
+                    Console.WriteLine("Numero de conta invalido, digite o número de uma conta válida!");
+                    Console.Write("\nDigite o numero da conta que fará uma transferencia: ");
+                    origem = int.Parse(Console.ReadLine());
+                    c1 = listaContas.Find(x => x.NumConta == origem);
+                }
 
-            Console.Write("Digite o valor da transferencia: ");
-            double valor = double.Parse(Console.ReadLine());
+                Console.Write("\nDigite o numero da conta que receberá a transferencia: ");
+                int destino = int.Parse(Console.ReadLine());
 
-            c1.Saque(valor);
-            c2.Deposito(valor);
-        }
+                Conta c2 = listaContas.Find(x => x.NumConta == destino);
+                while (c2 == null)
+                {
+                    Console.WriteLine("Numero de conta invalido, digite o número de uma conta válida!");
+                    Console.Write("\nDigite o numero da conta que receberá a transferencia: ");
+                    destino = int.Parse(Console.ReadLine());
+                    c2 = listaContas.Find(x => x.NumConta == destino);
+                }
+
+                Console.Write("\nDigite o valor da transferencia: ");
+                double valor = double.Parse(Console.ReadLine());
+
+                c1.Transferencia(c2, valor) ;
+
+                Console.WriteLine($"\n{c1}\n{c2}");
+            
+             }
     }
 }

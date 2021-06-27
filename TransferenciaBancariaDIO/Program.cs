@@ -42,6 +42,10 @@ namespace TransferenciaBancariaDIO
                     case "C":
                         Console.Clear();
                         break;
+
+                    default:
+                        Console.WriteLine("Opção inválida, digite uma opção válida!");
+                        break;
                 }
                 Console.WriteLine();
                 opcaoUsuario = Menu.OpcaoUsuario();

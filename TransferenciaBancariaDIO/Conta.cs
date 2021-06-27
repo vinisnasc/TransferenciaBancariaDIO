@@ -38,9 +38,23 @@ namespace TransferenciaBancariaDIO
                 Saldo -= valor;
         }
 
+        public void Transferencia(Conta c2, double valor)
+        {
+            if (valor > (Saldo + Credito))
+                Console.WriteLine("Saldo insuficiente para essa operação!");
+
+            else
+            {
+                Saldo -= valor;
+                c2.Saldo += valor;
+            }
+        }
+
         public override string ToString()
         {
             return "Conta número: " + NumConta + ". Titular: " + Nome + ". Saldo de: R$ " + Saldo.ToString("F2");
         }
+
+       
     }
 }
